@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
 import styles from "./Navbar.module.css";
 import { getImageUrl } from "../../utils";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <nav className={styles.navbar}>
@@ -15,11 +28,12 @@ export const Navbar = () => {
         <img
           className={styles.menuBtn}
           src={
-            menuOpen
-              ? getImageUrl("nav/closeIcon.png")
-              : getImageUrl("nav/menuIcon.png")
+            isSmallScreen
+              ? menuOpen
+                ? getImageUrl("nav/closeIcon.png")
+                : getImageUrl("nav/menuIcon.png")
+              : null
           }
-          alt="menu-button"
           onClick={() => setMenuOpen(!menuOpen)}
         />
         <ul
