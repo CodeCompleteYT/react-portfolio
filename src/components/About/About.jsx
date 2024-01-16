@@ -3,13 +3,7 @@ import { getImageUrl } from "../../utils";
 import styles from "./About.module.css";
 
 const {
-  container,
-  title,
-  content,
-  aboutImage,
-  aboutItems,
-  aboutItem,
-  aboutItemText,
+  container,title,content,aboutImage,aboutItems,aboutItem,aboutItemText,
 } = styles;
 
 const renderAboutItem = (icon, title, description) => (
